@@ -1,53 +1,64 @@
 const Category = require("../models/Category");
-const Course=require("../models/Course");
-//create category handler
-exports.createCategory = async(req, res)=>{
-    try{console.log("Request received for createCategory");
-        const {name, description}=req.body;
-        if(!name){
-            return res.status(400).json({success:false, message:"All fields are required"})
-        }
-		console.log("Creating category in the database");
-        //create entry in db
-        const categoryDetails = await Category.create({
-            name:name,
-            description:description,
-        })
-        console.log("Category created: ", categoryDetails);
-        return res.status(200).json({success:true, message:"Category created successfully"})
+const Course = require("../models/Course");
 
-    }
-    catch(error){
-		console.error("Error creating category: ", error);
-        return res.status(500).json({success:false, message:error.message})
-    }
-}
-//getAllCategory handler fxn
-exports.showAllCategory=async(req, res)=>{
-    try{
-		
-        const allCategory = await Category.find({}, {name:true, description:true} )
-        res.status(200).json({success:true, message:"All Category returned successfully", data: allCategory})
-    }
-    catch(error){
-        return res.status(500).json({success:false, message:error.message})
-    }
-}
+exports.createCategory = async (req, res) => {
+	try {
+		const { name, description } = req.body;
+		if (!name) {
+			return res
+				.status(400)
+				.json({ success: false, message: "All fields are required" });
+		}
+		const CategorysDetails = await Category.create({
+			name: name,
+			description: description,
+		});
+		console.log(CategorysDetails);
+		return res.status(200).json({
+			success: true,
+			message: "Categorys Created Successfully",
+		});
+	} catch (error) {
+		return res.status(500).json({
+			success: true,
+			message: error.message,
+		});
+	}
+};
 
-//category page details handler fxn
+exports.showAllCategories = async (req, res) => {
+	try {
+		const allCategorys = await Category.find(
+			{},
+			{ name: true, description: true }
+		);
+		res.status(200).json({
+			success: true,
+			data: allCategorys,
+		});
+	} catch (error) {
+		return res.status(500).json({
+			success: false,
+			message: error.message,
+		});
+	}
+};
+
 exports.categoryPageDetails = async (req, res) => {
 	try {
 		const { categoryId } = req.body;
 
 		// Get courses for the specified category
-		const selectedCategory = await Category.findById(categoryId)          
+		const selectedCategory = await Category.findById(categoryId)          //populate instuctor and rating and reviews from courses
 			.populate({path:"courses",match:{status:"Published"},populate:([{path:"instructor"},{path:"ratingAndReviews"}])})
 			.exec();
-            //populate instuctor and rating and reviews from courses
-		console.log("selected category", selectedCategory);
+		// console.log(selectedCategory);
 		// Handle the case when the category is not found
 		if (!selectedCategory) {
-			return res.status(404).json({ success: false, message: "Category not found" });
+			console.log("Category not found.");
+			return res
+				.status(404)
+				.json({ success: false, message: "Category not found" });
 		}
 		// Handle the case when there are no courses
 		if (selectedCategory.courses.length === 0) {
@@ -59,7 +70,7 @@ exports.categoryPageDetails = async (req, res) => {
 		}
 
 		const selectedCourses = selectedCategory.courses;
-		console.log('Selected Courses:', selectedCourses);
+
 		// Get courses for other categories
 		const categoriesExceptSelected = await Category.find({
 			_id: { $ne: categoryId },

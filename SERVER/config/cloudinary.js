@@ -1,6 +1,6 @@
 const cloudinary = require('cloudinary').v2
 
-exports.cloudinaryConnect= ()=>{
+exports.cloudnairyconnect= ()=>{
     try {
         cloudinary.config({
             cloud_name : process.env.CLOUD_NAME,
@@ -11,6 +11,6 @@ exports.cloudinaryConnect= ()=>{
 
         
     } catch (error) {
-        console.log("Error occured whilst connecting to cloudinary"+error)
+        console.log("error connecting cloudinary"+error)
     }
 }

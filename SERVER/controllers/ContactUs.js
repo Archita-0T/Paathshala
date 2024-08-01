@@ -1,5 +1,5 @@
 const mailSender = require("../utils/mailSender");
-require("dotenv").config();
+
 exports.contactUs = async (req, res) => {
   const { firstName, lastName, email, message, phoneNo } = req.body;
   if (!firstName || !email || !message) {
