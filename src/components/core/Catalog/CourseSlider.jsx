@@ -1,18 +1,22 @@
 import React from 'react'
 
-import {Swiper, SwiperSlide} from "swiper/react"
+import { Swiper,SwiperSlide} from "swiper/react"
 import "swiper/css"
 import "swiper/css/free-mode"
 import "swiper/css/pagination"
 import "swiper/css/navigation";
-import { Autoplay,FreeMode,Navigation, Pagination,Mousewheel, Keyboard}  from 'swiper/modules'
+// import { Autoplay,FreeMode,Navigation, Pagination,Mousewheel, Keyboard}  from 'swiper'
+import  { Keyboard,Pagination, Navigation, FreeMode, Mousewheel } from 'swiper/modules';
+
+import 'swiper/swiper-bundle.css';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import "react-loading-skeleton/dist/skeleton.css";
 
 import CatalogCard from './CatalogCard'
 
 const CourseSlider = ({Courses}) => {
-    
+  // Swiper.use([Pagination, Navigation, FreeMode, Mousewheel]);
+
   return (
     <>
         {
