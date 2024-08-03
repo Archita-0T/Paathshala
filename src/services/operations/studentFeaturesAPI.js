@@ -40,7 +40,7 @@ export async function buyCourse (token, courses, userDetails, navigate, dispatch
         return;
         }
     const orderResponse = await apiConnector("POST", COURSE_PAYMENT_API, {courses},{
-        Authorisation: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
     })
     if(!orderResponse.data.success){
         toast.error(orderResponse.data.message)
@@ -64,7 +64,7 @@ export async function buyCourse (token, courses, userDetails, navigate, dispatch
         handler: async function (response) {
             console.log("buyCourse -> response", response)
             sendPaymentSuccessEmail(response,orderResponse.data.amount,token);
-            verifypament(response,courses,token,navigate,dispatch);
+            verifypayment(response,courses,token,navigate,dispatch);
         },
         theme: {
             color: "#686CFD",
@@ -93,7 +93,7 @@ async function sendPaymentSuccessEmail (response,amount,token) {
         paymentId:response.razorpay_payment_id,
         orderId:response.razorpay_order_id,
     }, {
-        Authorisation: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
     });
     if (!res.success) {
         console.log(res.message);
@@ -101,7 +101,7 @@ async function sendPaymentSuccessEmail (response,amount,token) {
     }
 }
 
-async function verifypament (response,courses,token,navigate,dispatch,) {
+async function verifypayment (response,courses,token,navigate,dispatch,) {
     const toastId = toast.loading("Please wait while we verify your payment");
     console.log("verifypayment -> courses", courses.courses);
     try{
@@ -112,9 +112,9 @@ async function verifypament (response,courses,token,navigate,dispatch,) {
             razorpay_signature: response.razorpay_signature,
             courses:courses.courses || courses,
         }, {
-            Authorisation: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
         });
-        console.log("verifypament -> res", res)
+        console.log("verifypayment -> res", res)
         if (!res.data.success) {
             toast.error(res.message);
             return;

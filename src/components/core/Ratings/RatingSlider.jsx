@@ -94,7 +94,7 @@ const RatingSlider = () => {
                   />
                   <div className="flex flex-col">
                     <h3 className="font-semibold text-richblack-5">
-                      {review?.user?.firstName} {review?.user.lastName}
+                      {review?.user?.firstName} {review?.user?.lastName}
                     </h3>
                     <p className="text-[12px] font-medium text-richblack-500">
                       {review?.course?.courseName}

@@ -62,6 +62,7 @@ const userSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+	
 		courseProgress: [
 			{
 				type: mongoose.Schema.Types.ObjectId,

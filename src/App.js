@@ -22,7 +22,7 @@ import OpenRoute from "./Components/core/Auth/OpenRoute";
 import PrivateRoute from "./Components/core/Auth/PrivateRoute";
 import MyProfile from "./Components/core/Dashboard/MyProfile";
 import Setting from "./Components/core/Dashboard/Settings";
-import EnrollledCourses from "./Components/core/Dashboard/EnrolledCourses";
+import EnrolledCourses from "./Components/core/Dashboard/EnrolledCourses";
 import Cart from "./Components/core/Dashboard/Cart/index";
 import { ACCOUNT_TYPE } from "./utils/constants";
 import AddCourse from "./Components/core/Dashboard/AddCourse/index";
@@ -49,11 +49,11 @@ function App() {
   const onlineStatus = useOnlineStatus();
  
 
-  const [loading,setLoding]=useState(true);
+  const [loading,setLoading]=useState(true);
   console.log(process.env);
   useEffect(()=>{
     setTimeout(()=>{
-      setLoding(false);
+      setLoading(false);
     },3000);
   },[]);
   if(loading){
@@ -136,7 +136,7 @@ function App() {
               <Route path="dashboard/cart" element={<Cart />} />
               <Route
                 path="dashboard/enrolled-courses"
-                element={<EnrollledCourses />}
+                element={<EnrolledCourses />}
               />
               <Route
                 path="dashboard/purchase-history"
