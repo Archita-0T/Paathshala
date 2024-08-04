@@ -29,7 +29,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: JSON.parse(process.env.CORS_ORIGIN),
+    origin: process.env.CORS_ORIGIN,
     credentials: true,
     maxAge: 14400,
   })
