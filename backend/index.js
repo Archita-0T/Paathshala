@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const express = require("express");
-const path = require('path');     //deployment
+
 const app = express();
 
 
@@ -55,29 +55,12 @@ app.use("/api/v1/course", CourseRoutes);
 app.use("/api/v1/contact", require("./routes/ContactUs"));
 
 
-//--------------------------------------------DEPLOYMENT----------------------------------------------------
-console.log('NODE_ENV:',process.env.NODE_ENV);
-const __dirname1 = path.resolve();
-if(process.env.NODE_ENV==='production'){
-  app.use(express.static(path.join(__dirname1,"/frontend/build")));
-  app.get('*', (req, res)=>{
-    res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"));
-  })
 
-}
-else{
-  app.get("/", (req, res) => {
-    res.status(200).json({
-      message: "Welcome to the API",
-    });
+app.get("/", (req, res) => {
+  res.status(200).json({
+    message: "Welcome to the API",
   });
-
-}
-
-
-//--------------------------------------------DEPLOYMENT----------------------------------------------------
-
-
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

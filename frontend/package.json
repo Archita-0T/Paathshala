@@ -1,7 +1,7 @@
 {
   "name": "Client",
   "description": "This is client side of Paathshala web application",
-  "proxy":"http://127.0.0.1:4000",
+  
   "version": "0.1.0",
   "private": true,
   "dependencies": {
