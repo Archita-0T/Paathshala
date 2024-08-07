@@ -32,9 +32,10 @@ app.use(
     origin: process.env.CORS_ORIGIN,
     credentials: true,
     maxAge: 14400,
+    method:["GET","POST","DELETE","PUT"],
   })
 );
-
+app.options('*',cors());
 app.use(
   fileUpload({
     useTempFiles: true,
