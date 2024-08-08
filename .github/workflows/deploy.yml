@@ -31,7 +31,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          sparse-checkout: 'frontend'
+          sparse-checkout: 'Paathshala/frontend'
           sparse-checkout-cone-mode: false
       - name: Set up Node
         uses: actions/setup-node@v4
